@@ -165,9 +165,9 @@ class AvaticaClient(object):
             try:
                 if self.auth == "SPNEGO":
                     #response = requests.request('post', self.url.geturl(), data=body, stream=True, headers=headers, auth=HTTPSPNEGOAuth(mutual_authentication=OPTIONAL))
-                    response = requests.request('post', self.url.geturl(), data=body, stream=True, headers=headers, auth=HTTPKerberosAuth(mutual_authentication=OPTIONAL, mech_oid=kerberos.GSS_MECH_OID_SPNEGO))
+                    response = requests.request('post', self.url.geturl(), data=body, stream=True, headers=headers, auth=HTTPKerberosAuth(mutual_authentication=OPTIONAL, mech_oid=kerberos.GSS_MECH_OID_SPNEGO), timeout=7200)
                 else:
-                    response = requests.request('post', self.url.geturl(), data=body, stream=True, headers=headers)
+                    response = requests.request('post', self.url.geturl(), data=body, stream=True, headers=headers, timeout=7200)
 
             except requests.HTTPError as e:
                 if retry_count > 0:
